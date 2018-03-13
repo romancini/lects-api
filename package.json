@@ -1,0 +1,19 @@
+{
+  "name": "lects-api",
+  "version": "1.0.0",
+  "description": "Api para conexão aos objetos de aprendizagem",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^5.4.1",
+    "body-parser": "^1.14.1",
+    "consign": "^0.1.2",
+    "express": "^4.13.3",
+    "mongoose": "^5.0.9"
+  }
+}
