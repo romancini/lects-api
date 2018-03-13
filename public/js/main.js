@@ -1,4 +1,4 @@
-angular.module('lects', ['learningObjsServices','ngAnimate', 'ngRoute', 'ngResource'])
+angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResource'])
 	.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 		$httpProvider.interceptors.push('tokenInterceptor');
@@ -10,12 +10,12 @@ angular.module('lects', ['learningObjsServices','ngAnimate', 'ngRoute', 'ngResou
 
 		$routeProvider.when('/learningObjs/new', {
 			templateUrl: 'partials/learningObj.html',
-			controller: 'FotoController'
+			controller: 'LearningObjsController'
 		});
 
 		$routeProvider.when('/learningObjs/edit/:learningObjId', {
 			templateUrl: 'partials/learningObj.html',
-			controller: 'FotoController'
+			controller: 'LearningObjsController'
 		});
 
 		$routeProvider.when('/login', {

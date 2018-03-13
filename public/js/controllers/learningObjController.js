@@ -1,28 +1,27 @@
-angular.module('lects')
-	.controller('FotoController', function($scope, recursoFoto, $routeParams, cadastroDeFotos) {
+angular.module('lects').controller('LearningObjController', function($scope, $routeParams) {
 
-		$scope.foto = {};
-		$scope.mensagem = '';
+	$scope.learningObj = {};
+	$scope.mensagem = '';
 
-		if($routeParams.fotoId) {
-			recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
-				$scope.foto = foto; 
-			}, function(erro) {
-				console.log(erro);
-				$scope.mensagem = 'Não foi possível obter a foto'
-			});
-		}
+	// if($routeParams.fotoId) {
+	// 	recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
+	// 		$scope.foto = foto; 
+	// 	}, function(erro) {
+	// 		console.log(erro);
+	// 		$scope.mensagem = 'Não foi possível obter a foto'
+	// 	});
+	// }
 
-		$scope.submeter = function() {
-			if ($scope.formulario.$valid) {
-				cadastroDeFotos.cadastrar($scope.foto)
-				.then(function(dados) {
-					$scope.mensagem = dados.mensagem;
-					if (dados.inclusao) $scope.foto = {};
-				})
-				.catch(function(erro) {
-					$scope.mensagem = erro.mensagem;
-				});
-			}
-		};
-	});
+	// $scope.submeter = function() {
+	// 	if ($scope.formulario.$valid) {
+	// 		cadastroDeFotos.cadastrar($scope.foto)
+	// 		.then(function(dados) {
+	// 			$scope.mensagem = dados.mensagem;
+	// 			if (dados.inclusao) $scope.foto = {};
+	// 		})
+	// 		.catch(function(erro) {
+	// 			$scope.mensagem = erro.mensagem;
+	// 		});
+	// 	}
+	// };
+});

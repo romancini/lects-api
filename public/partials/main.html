@@ -2,8 +2,8 @@
 	<h1 class="text-center">LECTS</h1>
 </div>
 
-<p ng-show="mensagem.length" class="alert alert-info">
-	{{mensagem}}
+<p ng-show="message.length" class="alert alert-info">
+	{{message}}
 </p>
 
 <div class="row">
@@ -11,18 +11,18 @@
 		<form>
 			<div class="input-group">
 				<span class="input-group-btn">
-					<a href="/#/fotos/new" class="btn btn-primary" type="button">
+					<a href="/#/learningObj/new" class="btn btn-primary" type="button">
 						Nova foto
 					</a>
 				</span>
-				<input class="form-control" placeholder="filtrar pelo título da foto" 
-					ng-model="filtro" ng-model-options="{ debounce: 500 }">
+				<input class="form-control" placeholder="filtrar pelo título do objeto" 
+					ng-model="filter" ng-model-options="{ debounce: 500 }">
 		</form>
 	</div> <!-- fim col-md-12 -->
 </div> <!-- fim row -->
 
 <div class="row">
-    <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+    <meu-painel class="col-md-2 painel-animado" ng-repeat="lo in learningObjs | filter: filter" titulo="{{lo.title}}">
         <minha-foto url="{{foto.url}}" alt="{{foto.titulo}}"></minha-foto>
 
 		<a class="btn btn-primary btn-block" href="/#/fotos/edit/{{foto._id}}">
@@ -31,3 +31,4 @@
 		<meu-botao-perigo nome="Remover" acao="remover(foto)">Remover</meu-botao-perigo>
     </meu-painel>
 </div>
+			
