@@ -1,26 +1,26 @@
-angular.module('lects').controller('LearningObjController', function($scope, $routeParams) {
+angular.module('lects').controller('LearningObjController', function($scope, $routeParams, resourceLearningObj) {
 
 	$scope.learningObj = {};
-	$scope.mensagem = '';
+	$scope.message = '';
 
-	// if($routeParams.fotoId) {
-	// 	recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
-	// 		$scope.foto = foto; 
-	// 	}, function(erro) {
-	// 		console.log(erro);
-	// 		$scope.mensagem = 'Não foi possível obter a foto'
-	// 	});
-	// }
+	if($routeParams.learningObjId) {
+		resourceLearningObj.get({learningObjId: $routeParams.learningObjId}, function(learningObj) {
+			$scope.learningObj = learningObj; 
+		}, function(erro) {
+			console.log(erro);
+			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
+		});
+	}
 
 	// $scope.submeter = function() {
 	// 	if ($scope.formulario.$valid) {
 	// 		cadastroDeFotos.cadastrar($scope.foto)
 	// 		.then(function(dados) {
-	// 			$scope.mensagem = dados.mensagem;
+	// 			$scope.message = dados.message;
 	// 			if (dados.inclusao) $scope.foto = {};
 	// 		})
 	// 		.catch(function(erro) {
-	// 			$scope.mensagem = erro.mensagem;
+	// 			$scope.message = erro.message;
 	// 		});
 	// 	}
 	// };

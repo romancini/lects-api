@@ -6,8 +6,8 @@ angular.module('lects').controller('LearningObjsController', function($scope, re
 
 	resourceLearningObj.query(function(learningObjs) {
 		$scope.learningObjs = learningObjs;
-	}, function(erro) {
-		console.log(erro);
+	}, function(error) {
+		console.log('LearningObjsController: ' + error);
 	});
 
 	// $scope.remover = function(foto) {

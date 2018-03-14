@@ -5,20 +5,20 @@ module.exports = function(uri) {
 	mongoose.connect(uri);
 
 	mongoose.connection.on('connected', function() {
-		console.log('Conectado ao MongoDB')
+		console.log('Database connected')
 	});
 
 	mongoose.connection.on('error', function(error) {
-		console.log('Erro na conexão: ' + error);
+		console.log('Connection database error: ' + error);
 	});	
 
 	mongoose.connection.on('disconnected', function() {
-		console.log('Desconectado do MongoDB')
+		console.log('Database disconnected')
 	});
 
 	process.on('SIGINT', function() {
 		mongoose.connection.close(function() {
-			console.log('Aplicação terminada, conexão fechada')
+			console.log('App closed')
 			process.exit(0);
 		});
 		

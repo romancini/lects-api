@@ -1,59 +1,61 @@
 <div class="page-header text-center">
-	<h1>{{foto.titulo}}</h1>
+	<h1>{{learningObj.title}}</h1>
 </div>
 
-<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+<p ng-show="message.length" class="alert alert-info">{{message}}</p>
 
-<form novalidate name="formulario" class="row" ng-submit="submeter()">
+<form novalidate name="editCreateForm" class="row" ng-submit="submeter()">
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Título</label>
-			<input name="titulo" class="form-control" ng-model="foto.titulo" required>  
-
-			<span ng-show = "formulario.$submitted && formulario.titulo.$error.required"
+			<input name="title" class="form-control" ng-model="learningObj.title" required>  
+			<span ng-show = "editCreateForm.$submitted && editCreateForm.title.$error.required"
 				class="form-control alert-danger">
 				Título obrigatório
 			</span>
-			<span ng-show="formulario.$submitted && formulario.titulo.$error.maxlength" 
+			<span ng-show="editCreateForm.$submitted && editCreateForm.title.$error.maxlength" 
 				class="form-control alert-danger">
 				No máximo 20 caracteres!
 			</span>
 		</div>
 		<div class="form-group">
-			<label>URL</label>
-			<input name="url" class="form-control" ng-model="foto.url" required>
-
-			<span ng-show = "formulario.$submitted && formulario.url.$error.required" 
+			<label>Tipo de mídia</label>
+			<select name="mediaType" ng-model="learningObj.media_type" class="form-control" 
+					ng-controller="MediaTypesController" 
+					ng-options="type._id as type.name for type in mediaTypes">
+				<option value="">Escolha um tipo</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>URL da mídia</label>
+			<input name="url" class="form-control" ng-model="learningObj.url" ng-enable="editCreateForm.mediaType">
+		</div>
+		<div class="form-group">
+			<label>Tipo de resposta</label>
+			<select name="answer" ng-model="learningObj.answer_type" class="form-control" 
+					required ng-controller="AnswerTypesController" 
+					ng-options="answer.name as answer.name for answer in answerTypes">
+				<option value="">Escolha um tipo</option>
+			</select>
+			<span ng-show="editCreateForm.$submitted && editCreateForm.answer.$error.required" 
 				class="form-control alert-danger">
-				URL obrigatória
-			</span> 
+				Tipo de resposta obrigatório
+			</span>
 		</div>
 		<div class="form-group">
 			<label>Descrição</label>
-			<textarea name="descricao" class="form-control" ng-model="foto.descricao">
+			<textarea name="descricao" class="form-control" ng-model="learningObj.descricao">
 			</textarea>
 		</div>
 
-		<div class="form-group">
-			<label>Grupo</label>
-			<select name="grupo" ng-model="foto.grupo" class="form-control" 
-					required ng-controller="GruposController" 
-					ng-options="grupo._id as (grupo.nome | uppercase) for grupo in grupos">
-				<option value="">Escolha um grupo</option>
-			</select>
-			<span ng-show="formulario.$submitted && formulario.grupo.$error.required" 
-				class="form-control alert-danger">
-				Grupo obrigatório
-			</span>
-		</div>
-
-		<button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">
+		<button type="submit" class="btn btn-primary" ng-disabled="editCreateForm.$invalid">
 			Salvar
 		</button>
-		<a href="/#/fotos" class="btn btn-primary">Voltar</a>
+		<a href="/#/learningObjs" class="btn btn-primary">Voltar</a>
 		<hr>
 	</div>
 	<div class="col-md-6">
-		<minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
+		<img class="img-responsive center-block" src="{{url}}" alt="{{title}}">
 	</div>
+	{{learningObj}}
 </form>

@@ -3,6 +3,6 @@ angular.module('lects').controller('AnswerTypesController', function($scope, $ht
 		.then(function(answerTypes) {
 			$scope.answerTypes = answerTypes.data;
 		}, function(error) {
-			console.log(error);
+			console.log('AnswerTypesController: ' + error);
 		});
 });

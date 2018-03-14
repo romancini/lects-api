@@ -2,6 +2,7 @@ angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResou
 	.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 		$httpProvider.interceptors.push('tokenInterceptor');
+		$locationProvider.html5Mode(true);
 		
 		$routeProvider.when('/learningObjs', {
 			templateUrl: 'partials/main.html',
@@ -10,12 +11,12 @@ angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResou
 
 		$routeProvider.when('/learningObjs/new', {
 			templateUrl: 'partials/learningObj.html',
-			controller: 'LearningObjsController'
+			controller: 'LearningObjController'
 		});
 
 		$routeProvider.when('/learningObjs/edit/:learningObjId', {
 			templateUrl: 'partials/learningObj.html',
-			controller: 'LearningObjsController'
+			controller: 'LearningObjController'
 		});
 
 		$routeProvider.when('/login', {
