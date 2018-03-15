@@ -8,6 +8,6 @@ if (!process.env.MONGODB_URI){
 require('./config/database')(mongo_uri);
 
 http.createServer(app)
-.listen(3000, function() {
+.listen(process.env.PORT || 3000, function() {
 	console.log('Server up');
 });
