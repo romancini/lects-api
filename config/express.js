@@ -5,7 +5,13 @@ var path = require('path');
 
 var app = express();
 
-app.set('secret', 'tccifsp2018'); 
+if (!process.env.NODE_ENV){
+    var secret = 'developing';
+}
+else {
+    var secret = process.env.SECRET_JWT;
+}
+app.set('secret', secret);
 app.use(express.static('./public'));
 app.use(bodyParser.json());
 
