@@ -8,17 +8,14 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Título</label>
-			<input name="title" class="form-control" ng-model="learningObj.title" required>  
-			<span ng-show = "editCreateForm.$submitted && editCreateForm.title.$error.required"
-				class="form-control alert-danger">
+			<input name="title" class="form-control" ng-model="learningObj.title" required>
+			<span ng-show="editCreateForm.$submitted && editCreateForm.title.$error.required" class="form-control alert-danger">
 				Título obrigatório
 			</span>
 		</div>
 		<div class="form-group">
 			<label>Tipo de mídia do url</label>
-			<select name="media" ng-model="learningObj.media_type" class="form-control" 
-					ng-controller="MediaTypesController" 
-					ng-options="media.name as media.name for media in mediaTypes">
+			<select name="media" ng-model="learningObj.media_type" class="form-control" ng-controller="MediaTypesController" ng-options="media.name as media.name for media in mediaTypes">
 				<option value="">Escolha um tipo</option>
 			</select>
 		</div>
@@ -28,61 +25,50 @@
 		</div>
 		<div class="form-group">
 			<label>Tipo de resposta</label>
-			<select name="answer" ng-model="learningObj.answer_type" class="form-control" 
-					required ng-controller="AnswerTypesController" 
-					ng-options="answer.name as answer.name for answer in answerTypes">
+			<select name="answer" ng-model="learningObj.answer_type" class="form-control" required ng-controller="AnswerTypesController"
+			    ng-options="answer.name as answer.name for answer in answerTypes">
 				<option value="">Escolha um tipo</option>
 			</select>
-			<span ng-show="editCreateForm.$submitted && editCreateForm.answer.$error.required" 
-				class="form-control alert-danger">
+			<span ng-show="editCreateForm.$submitted && editCreateForm.answer.$error.required" class="form-control alert-danger">
 				Tipo de resposta obrigatório
 			</span>
 		</div>
-
-		<div class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha'">
+		<div id="divMultEsc" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha'">
 			<label>Alternativas (apenas uma correta)</label>
-			<textarea name="descricao" class="form-control" ng-model="learningObj.descricao">
-			</textarea>
-		</div>
-		<div class="form-group" ng-if="learningObj.answer_type == 'Dissertativa'">
-			<label>Descrição Adicional - não obrigatória</label>
-			<textarea name="descricao" class="form-control" ng-model="learningObj.descricao">
-			</textarea>
-		</div>
-		<div class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha (Certo/Errado)'">
-			<label>Alternativas (selecione todas as corretas)</label><br>
-			<div class="input-group mb-6">
-				<div class="input-group-prepend">
-					<div class="input-group-text">
-						<input type="checkbox">
+			<button type="button" class="btn btn-secondary mb-1" ng-click="addNewAnswer()">Adicionar campo</button>		
+			<fieldset  data-ng-repeat="answer in learningObj.answers">
+				<div id="answerId3" class="input-group mb-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<input type="radio" name="answersRadioGroup" 
+								ng-model="answer.correct"
+								ng-true-value="'YES'" 
+								ng-false-value="'NO'">
+						</div>
 					</div>
-				</div><br>
-				<input type="text" class="form-control">
-				<div class="input-group-prepend">
-					<div class="input-group-text">
-						<input type="checkbox">
-					</div>
+					<input type="text" class="form-control" ng-model="answer.text">
+					<button class="remove" ng-show="$last" ng-click="removeAnswer()">-</button>
 				</div>
-				<input type="text" class="form-control">
-				<div class="input-group-prepend">
-					<div class="input-group-text">
-						<input type="checkbox">
+			</fieldset>
+		</div>
+		<div id="divMulEscVF" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha (Certo/Errado)'">
+			<label>Alternativas (selecione todas as corretas)</label>
+			<br>
+			<button type="button" class="btn btn-secondary mb-1" ng-click="addNewAnswer()">Adicionar campo</button>		
+			<fieldset  data-ng-repeat="answer in learningObj.answers">
+				<div id="answerId3" class="input-group mb-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<input type="checkbox"
+								ng-model="answer.correct"
+								ng-true-value="true"
+								ng-false-value="false">
+						</div>
 					</div>
-				</div><br>
-				<input type="text" class="form-control">
-				<div class="input-group-prepend">
-					<div class="input-group-text">
-						<input type="checkbox">
-					</div>
+					<input type="text" class="form-control" ng-model="answer.text">
+					<button class="remove" ng-show="$last" ng-click="removeAnswer()">-</button>
 				</div>
-				<input type="text" class="form-control">
-				<div class="input-group-prepend">
-					<div class="input-group-text">
-						<input type="checkbox">
-					</div>
-				</div><br>
-			</div>
-			</textarea>
+			</fieldset>
 		</div>
 
 		<button type="submit" class="btn btn-primary" ng-disabled="editCreateForm.$invalid">
