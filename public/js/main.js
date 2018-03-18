@@ -1,4 +1,4 @@
-angular.module('lects', ['learningObjsDirectives', 'learningObjServices', 'ngAnimate', 'ngRoute', 'ngResource'])
+angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResource'])
 	.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 		$httpProvider.interceptors.push('tokenInterceptor');

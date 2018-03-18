@@ -21,12 +21,13 @@
 		</div>
 		<div class="form-group">
 			<label>URL da mídia</label>
-			<input name="url" class="form-control" ng-model="learningObj.url" ng-enable="editCreateForm.mediaType">
+			<input name="url" class="form-control" ng-model="learningObj.url" ng-disabled="(!learningObj.media_type)">
 		</div>
 		<div class="form-group">
 			<label>Tipo de resposta</label>
-			<select name="answer" ng-model="learningObj.answer_type" class="form-control" required ng-controller="AnswerTypesController"
-			    ng-options="answer.name as answer.name for answer in answerTypes">
+			<select name="answer" ng-model="learningObj.answer_type" class="form-control" required 
+				ng-controller="AnswerTypesController" ng-options="answer.name as answer.name for answer in answerTypes" 
+				ng-change="resetRadios()" value="learningObj.answer_type">
 				<option value="">Escolha um tipo</option>
 			</select>
 			<span ng-show="editCreateForm.$submitted && editCreateForm.answer.$error.required" class="form-control alert-danger">
@@ -41,9 +42,8 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">
 							<input type="radio" name="answersRadioGroup" 
-								ng-model="answer.correct"
-								ng-true-value="'YES'" 
-								ng-false-value="'NO'">
+								ng-model="answer.correct" value="true"
+								ng-change="radioChange(answer)">
 						</div>
 					</div>
 					<input type="text" class="form-control" ng-model="answer.text">
@@ -61,8 +61,8 @@
 						<div class="input-group-text">
 							<input type="checkbox"
 								ng-model="answer.correct"
-								ng-true-value="true"
-								ng-false-value="false">
+								ng-true-value="'true'"
+								ng-false-value="'false'">
 						</div>
 					</div>
 					<input type="text" class="form-control" ng-model="answer.text">

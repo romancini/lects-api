@@ -3,17 +3,29 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 	$scope.learningObj = {};
 	$scope.message = '';
 	$scope.learningObj.answers = [
-		{text: '', correct: true},
-		{text: '', correct: false}
+		{text: '', correct: 'true'},
+		{text: '', correct: 'false'}
 	];
 
-	$scope.RadioChange = function (answer) {
-		alert('RadioChange');
-		if (answer.correct){
-			answer.correct = false;
-		} else{
-			answer.correct = true;
+	function setRadiosToFalse(lessThisItem) {
+		$scope.learningObj.answers.forEach(function(item, index){
+			if (index != lessThisItem){
+				item.correct = 'false';
+			}
+		});
+	}
+
+	$scope.resetRadios = function(){
+		if ($scope.learningObj.answer_type == 'Múltipla escolha' 
+			&& $scope.learningObj.answers.length > 0){
+			setRadiosToFalse(0);
 		}
+	};
+
+	$scope.radioChange = function(answer) {	
+		alert('RadioChange');	
+		var indexOfAnswer = $scope.learningObj.answers.indexOf(answer);
+		setRadiosToFalse(indexOfAnswer);
 	};
 
 	$scope.addNewAnswer = function(){
