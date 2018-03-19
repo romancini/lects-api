@@ -15,8 +15,10 @@ angular.module('lects')
 
         interceptor.response = function (response) {
             var token = response.headers('x-access-token');
+            var userLogin = response.headers('userLogin');
             if (token != null) {
                 $window.sessionStorage.token = token;
+                $window.sessionStorage.userLogin = userLogin;
                 console.log('Token no session storage: ', token);
             } 
             return response;

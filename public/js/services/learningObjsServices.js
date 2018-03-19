@@ -6,39 +6,38 @@ angular.module('learningObjServices', ['ngResource'])
 				method: 'PUT'
 			}
 		});
-	});
-	// .factory("cadastroDeFotos", function(recursoFoto, $q) {
-	// 	var service = {};
-	// 	service.cadastrar = function(foto) {
-	// 		return $q(function(resolve, reject) {
+	})
+	.factory("registerLearningObj", function(resourceLearningObj, $q) {
+		var service = {};
+		service.save = function(learningObj) {
+			return $q(function(resolve, reject) {
 
-	// 			if(foto._id) {
-	// 				recursoFoto.update({fotoId: foto._id}, foto, function() {
-	// 					resolve({
-	// 						mensagem: 'Foto ' + foto.titulo + ' atualizada com sucesso',
-	// 						inclusao: false
-	// 					});
-	// 				}, function(erro) {
-	// 					console.log(erro);
-	// 					reject({
-	// 						mensagem: 'Não foi possível atualizar a foto ' + foto.titulo
-	// 					});
-	// 				});
+				if(learningObj._id) {
+					resourceLearningObj.update({learningObjId: learningObj._id}, learningObj, function() {
+						resolve({
+							message: 'Objeto atualizado com sucesso',
+							included: false
+						});
+					}, function(error) {
+						console.log(error);
+						reject({
+							message: 'Não foi possível atualizar o Objeto'
+						});
+					});
 
-	// 			} else {
-	// 				recursoFoto.save(foto, function() {
-	// 					resolve({
-	// 						mensagem: 'Foto ' + foto.titulo + ' incluída com sucesso',
-	// 						inclusao: true
-	// 					});
-	// 				}, function(erro) {
-	// 					alert('Não Resolveu');
-	// 					reject({
-	// 						mensagem: 'Não foi possível incluir a foto ' + foto.titulo
-	// 					});
-	// 				});
-	// 			}
-	// 		});
-	// 	};
-	// 	return service;
-    // });
+				} else {
+					resourceLearningObj.save(learningObj, function() {
+						resolve({
+							message: 'Objeto incluído com sucesso',
+							included: true
+						});
+					}, function(error) {
+						reject({
+							message: 'Não foi possível incluir o Objeto'
+						});
+					});
+				}
+			});
+		};
+		return service;
+    });

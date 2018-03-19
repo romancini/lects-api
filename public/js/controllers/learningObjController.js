@@ -1,4 +1,4 @@
-angular.module('lects').controller('LearningObjController', function ($scope, $routeParams, resourceLearningObj) {
+angular.module('lects').controller('LearningObjController', function ($scope, $routeParams, resourceLearningObj, $window, registerLearningObj) {
 
 	$scope.learningObj = {};
 	$scope.message = '';
@@ -6,6 +6,7 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 		{text: '', correct: 'true'},
 		{text: '', correct: 'false'}
 	];
+	$scope.learningObj.owner = $window.sessionStorage.userLogin;
 
 	function setRadiosToFalse(lessThisItem) {
 		$scope.learningObj.answers.forEach(function(item, index){
@@ -22,8 +23,7 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 		}
 	};
 
-	$scope.radioChange = function(answer) {	
-		alert('RadioChange');	
+	$scope.radioChange = function(answer) {
 		var indexOfAnswer = $scope.learningObj.answers.indexOf(answer);
 		setRadiosToFalse(indexOfAnswer);
 	};
@@ -49,17 +49,35 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 		});
 	}
 
-	// $scope.submeter = function() {
-	// 	if ($scope.formulario.$valid) {
-	// 		cadastroDeFotos.cadastrar($scope.foto)
-	// 		.then(function(dados) {
-	// 			$scope.message = dados.message;
-	// 			if (dados.inclusao) $scope.foto = {};
-	// 		})
-	// 		.catch(function(erro) {
-	// 			$scope.message = erro.message;
-	// 		});
-	// 	}
-	// };
+	$scope.submit = function() {
+		if ($scope.editCreateForm.$valid) {
+			if ($scope.learningObj.answer_type == 'Dissertativa'){
+				$scope.learningObj.answers = [$scope.learningObj.answers[0]];
+			}
+			if ($scope.learningObj.answer_type == 'Múltipla escolha'){
+				var oneCorrect = false;
+				$scope.learningObj.answers.forEach(function(item, index){
+					if (item.correct == 'true')
+						oneCorrect = true;
+				});
+				if (!oneCorrect){
+					$scope.message = 'Deve haver pelo menos uma resposta correta';
+					return;
+				}
+			}
+			if (!$scope.learningObj.media_type && $scope.learningObj.media_url){
+				delete $scope.learningObj['media_type'];
+				delete $scope.learningObj['media_url'];
+			}
+			registerLearningObj.save($scope.learningObj)
+			.then(function(data) {
+				$scope.message = data.message;
+				if (data.included) $scope.learningObj = {};
+			})
+			.catch(function(error) {
+				$scope.message = error.message;
+			});
+		}
+	};
 
 });

@@ -22,7 +22,7 @@ var schema = mongoose.Schema({
         required: true
     },
     owner: {
-        type: ObjectId,
+        type: String,
         required: true
     }
 });

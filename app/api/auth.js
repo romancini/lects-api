@@ -21,7 +21,8 @@ module.exports = function(app) {
                      expiresIn: 84600 //24h
                  });
                  console.log(user.login + ' authenticated');
-                 res.set('x-access-token', token); 
+                 res.set('x-access-token', token);
+                 res.set('userLogin', user.login);
                  res.end(); 
              }
          });

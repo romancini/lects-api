@@ -4,11 +4,11 @@
 
 <p ng-show="message.length" class="alert alert-info">{{message}}</p>
 
-<form novalidate name="editCreateForm" class="row" ng-submit="submeter()">
+<form novalidate name="editCreateForm" class="row" ng-submit="submit()">
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Título</label>
-			<input name="title" class="form-control" ng-model="learningObj.title" required>
+			<textarea name="title" class="form-control" ng-model="learningObj.title" required></textarea>
 			<span ng-show="editCreateForm.$submitted && editCreateForm.title.$error.required" class="form-control alert-danger">
 				Título obrigatório
 			</span>
@@ -21,7 +21,7 @@
 		</div>
 		<div class="form-group">
 			<label>URL da mídia</label>
-			<input name="url" class="form-control" ng-model="learningObj.url" ng-disabled="(!learningObj.media_type)">
+			<input name="url" class="form-control" ng-model="learningObj.media_url" ng-disabled="(!learningObj.media_type)">
 		</div>
 		<div class="form-group">
 			<label>Tipo de resposta</label>
@@ -51,8 +51,13 @@
 				</div>
 			</fieldset>
 		</div>
-		<div id="divMulEscVF" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha (Certo/Errado)'">
+		<div class="form-group" ng-if="learningObj.answer_type == 'Dissertativa'">
 			<label>Alternativas (selecione todas as corretas)</label>
+			<br>
+			<textarea name="title" class="form-control" ng-model="learningObj.answers[0].text"></textarea>
+		</div>
+		<div id="divMulEscVF" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha (Certo/Errado)'">
+			<label>Resposta correta, ou texto para auxiliar na correção</label>
 			<br>
 			<button type="button" class="btn btn-secondary mb-1" ng-click="addNewAnswer()">Adicionar campo</button>		
 			<fieldset  data-ng-repeat="answer in learningObj.answers">
@@ -74,11 +79,13 @@
 		<button type="submit" class="btn btn-primary" ng-disabled="editCreateForm.$invalid">
 			Salvar
 		</button>
-		<a href="/#/learningObjs" class="btn btn-primary">Voltar</a>
+		<a href="/learningObjs" class="btn btn-primary">Voltar</a>
 		<hr>
 	</div>
-	<div class="col-md-6">
-		<img class="img-responsive center-block" src="{{url}}" alt="{{title}}">
+	<div class="col-md-6" ng-if="learningObj.media_type == 'Imagem' && learningObj.media_url">
+		<img class="img-responsive center-block" src="{{learningObj.media_url}}">
 	</div>
-	{{learningObj}}
+	<div class="col-md-6" ng-if="learningObj.media_type == 'Vídeo' && learningObj.media_url">
+		<iframe width="560" height="315" ng-src="{{learningObj.media_url | trustUrl}}" frameborder="0" allowfullscreen></iframe>
+	</div>
 </form>
