@@ -1,8 +1,12 @@
-angular.module('lects').controller('LearningObjsController', function($scope, resourceLearningObj) {
+angular.module('lects').controller('LearningObjsController', function($scope, resourceLearningObj, $location) {
 	
 	$scope.learningObjs = [];
 	$scope.filter = '';
 	$scope.message = '';
+
+	$scope.createObjPage = function(){
+		$location.path( '/learningObjs/new' );
+	};
 
 	resourceLearningObj.query(function(learningObjs) {
 		$scope.learningObjs = learningObjs;
