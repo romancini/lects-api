@@ -9,7 +9,20 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 			{text: '', correct: 'false'}
 		];
 		$scope.learningObj.owner = $window.sessionStorage.userLogin;
-	}	
+	}
+	
+	if ($routeParams.learningObjId) {
+		resourceLearningObj.get({
+			learningObjId: $routeParams.learningObjId
+		}, function (learningObj) {
+			$scope.learningObj = learningObj;
+		}, function (erro) {
+			console.log(erro);
+			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
+		});
+	} else {
+		init();
+	}
 
 	function setRadiosToFalse(lessThisItem) {
 		$scope.learningObj.answers.forEach(function(item, index){
@@ -40,19 +53,6 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 		$scope.learningObj.answers.splice(lastItem);
 	};
 
-	if ($routeParams.learningObjId) {
-		resourceLearningObj.get({
-			learningObjId: $routeParams.learningObjId
-		}, function (learningObj) {
-			$scope.learningObj = learningObj;
-		}, function (erro) {
-			console.log(erro);
-			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
-		});
-	} else {
-		init();
-	}
-
 	$scope.submit = function() {
 		if ($scope.editCreateForm.$valid) {
 			if ($scope.learningObj.answer_type == 'Dissertativa'){
@@ -74,10 +74,11 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 				delete $scope.learningObj['media_url'];
 			}
 			registerLearningObj.save($scope.learningObj)
-			.then(function(data) {
-				$scope.message = data.message;
-				if (data.included) 
+			.then(function(data) {				
+				if (data.included) {
 					init();
+				}
+				$scope.message = data.message;
 			})
 			.catch(function(error) {
 				$scope.message = error.message;

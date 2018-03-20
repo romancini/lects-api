@@ -1,12 +1,12 @@
-angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResource'])
+angular.module('lects', ['LearningObjServices', 'ActivityServices','ngAnimate', 'ngRoute', 'ngResource'])
 	.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 		$httpProvider.interceptors.push('tokenInterceptor');
 		$locationProvider.html5Mode(true);
 		
-		$routeProvider.when('/learningObjs', {
-			templateUrl: 'partials/main.html',
-			controller: 'LearningObjsController'
+		$routeProvider.when('/home', {
+			templateUrl: 'partials/home.html',
+			controller: 'HomeController'
 		});
 
 		$routeProvider.when('/learningObjs/new', {
@@ -19,12 +19,21 @@ angular.module('lects', ['learningObjServices', 'ngAnimate', 'ngRoute', 'ngResou
 			controller: 'LearningObjController'
 		});
 
+		$routeProvider.when('/activitys/new', {
+			templateUrl: 'partials/activity.html',
+			controller: 'ActivityController'
+		});
+
+		$routeProvider.when('/activitys/edit/:learningObjId', {
+			templateUrl: 'partials/activity.html',
+			controller: 'ActivityController'
+		});
+
 		$routeProvider.when('/login', {
             templateUrl: 'partials/login.html',
             controller: 'LoginController'
         });
 
-
-		$routeProvider.otherwise({redirectTo: '/learningObjs'});
+		$routeProvider.otherwise({redirectTo: '/home'});
 
 	});

@@ -1,6 +1,5 @@
-angular.module('learningObjServices', ['ngResource'])
+angular.module('LearningObjServices', ['ngResource'])
 	.factory('resourceLearningObj', function($resource) {
-
 		return $resource('/v1/learningObjs/:learningObjId', null, {
 			'update' : { 
 				method: 'PUT'

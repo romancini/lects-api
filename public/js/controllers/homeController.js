@@ -1,17 +1,13 @@
-angular.module('lects').controller('LearningObjsController', function($scope, resourceLearningObj, $location) {
+angular.module('lects').controller('HomeController', function($scope, resourceLearningObj, $location) {
 	
 	$scope.learningObjs = [];
 	$scope.filter = '';
 	$scope.message = '';
 
-	$scope.createObjPage = function(){
-		$location.path( '/learningObjs/new' );
-	};
-
 	resourceLearningObj.query(function(learningObjs) {
 		$scope.learningObjs = learningObjs;
 	}, function(error) {
-		console.log('LearningObjsController: ' + error);
+		console.log(error);
 	});
 
 	// $scope.remover = function(foto) {

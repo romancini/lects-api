@@ -11,19 +11,17 @@
 		<form class="mb-2">
 			<div class="input-group">
 				<div class="btn-group">
-					<button type="button" class="btn btn-secondary" ng-click="createObjPage()">Novo Objeto</button>
-					<!-- <a href="/learningObjs/new" class="btn btn-primary" type="button">
-						Novo objeto
-					</a> -->
-					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
+					<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
 					    aria-expanded="false">
-						<span class="sr-only">Toggle Dropdown</span>
+						<span class="octicon octicon-clippy"></span>
+						<img src="../css/svg/clippy.svg"></img>
 					</button>
 					<div class="dropdown-menu">						
-						<a class="dropdown-item" href="#">Atividades</a>
-						<a class="dropdown-item" href="#">Nova atividade</a>
+						<a class="dropdown-item" href="/learningObjs/new">Novo objeto</a>
+						<a class="dropdown-item" href="/activitys/new">Nova atividade</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Usuários</a>
+						<a class="dropdown-item" href="/tags">Tags</a>
+						<a class="dropdown-item" href="/users">Usuários</a>
 					</div>
 				</div>
 				<input class="form-control" placeholder="filtrar pelo título do objeto" ng-model="filter">
