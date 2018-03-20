@@ -1,12 +1,15 @@
 angular.module('lects').controller('LearningObjController', function ($scope, $routeParams, resourceLearningObj, $window, registerLearningObj) {
 
-	$scope.learningObj = {};
-	$scope.message = '';
-	$scope.learningObj.answers = [
-		{text: '', correct: 'true'},
-		{text: '', correct: 'false'}
-	];
-	$scope.learningObj.owner = $window.sessionStorage.userLogin;
+	function init(){
+		$scope.learningObj = {};
+		$scope.message = '';
+		$scope.learningObj.media_url = '';
+		$scope.learningObj.answers = [
+			{text: '', correct: 'true'},
+			{text: '', correct: 'false'}
+		];
+		$scope.learningObj.owner = $window.sessionStorage.userLogin;
+	}	
 
 	function setRadiosToFalse(lessThisItem) {
 		$scope.learningObj.answers.forEach(function(item, index){
@@ -29,7 +32,6 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 	};
 
 	$scope.addNewAnswer = function(){
-		var newItemNo = $scope.learningObj.answers.length+1;
     	$scope.learningObj.answers.push({text:'',correct: false});
 	};
 
@@ -47,6 +49,8 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 			console.log(erro);
 			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
 		});
+	} else {
+		init();
 	}
 
 	$scope.submit = function() {
@@ -72,7 +76,8 @@ angular.module('lects').controller('LearningObjController', function ($scope, $r
 			registerLearningObj.save($scope.learningObj)
 			.then(function(data) {
 				$scope.message = data.message;
-				if (data.included) $scope.learningObj = {};
+				if (data.included) 
+					init();
 			})
 			.catch(function(error) {
 				$scope.message = error.message;
