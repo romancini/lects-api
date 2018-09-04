@@ -3,7 +3,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var schema = mongoose.Schema({
 
-	title: {
+	question: {
 		type: String,
 		required: true
     },
