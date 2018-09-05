@@ -1,4 +1,4 @@
-angular.module('lects', ['LearningObjServices', 'ActivityServices','ngAnimate', 'ngRoute', 'ngResource'])
+angular.module('lects', ['LearningObjServices', 'LessonServices','ngAnimate', 'ngRoute', 'ngResource'])
 	.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 		$httpProvider.interceptors.push('tokenInterceptor');
@@ -19,14 +19,14 @@ angular.module('lects', ['LearningObjServices', 'ActivityServices','ngAnimate', 
 			controller: 'LearningObjController'
 		});
 
-		$routeProvider.when('/activitys/new', {
-			templateUrl: 'partials/activity.html',
-			controller: 'ActivityController'
+		$routeProvider.when('/lessons/new', {
+			templateUrl: 'partials/lesson.html',
+			controller: 'LessonController'
 		});
 
-		$routeProvider.when('/activitys/edit/:learningObjId', {
-			templateUrl: 'partials/activity.html',
-			controller: 'ActivityController'
+		$routeProvider.when('/lessons/edit/:learningObjId', {
+			templateUrl: 'partials/lesson.html',
+			controller: 'LessonController'
 		});
 
 		$routeProvider.when('/login', {

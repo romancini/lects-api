@@ -1,5 +1,5 @@
 <div class="page-header text-center">
-    <h1>{{activity.title | limitTo: 15}}...</h1>
+    <h1>{{lesson.title | limitTo: 15}}...</h1>
 </div>
 
 <p ng-show="message.length" class="alert alert-info">{{message}}</p>
@@ -8,14 +8,14 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Título</label>
-            <textarea name="title" class="form-control" ng-model="activity.title" required></textarea>
+            <textarea name="title" class="form-control" ng-model="lesson.title" required></textarea>
             <span ng-show="editCreateForm.$submitted && editCreateForm.title.$error.required" class="form-control alert-danger">
                 Título obrigatório
             </span>
         </div>
         <div class="form-group">
             <label>Descrição</label>
-            <textarea name="description" class="form-control" ng-model="activity.description"></textarea>
+            <textarea name="description" class="form-control" ng-model="lesson.description"></textarea>
         </div>
         <div class="form-group">
             <label>Objetos de aprendizagem</label>

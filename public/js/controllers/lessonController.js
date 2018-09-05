@@ -1,10 +1,10 @@
-angular.module('lects').controller('ActivityController', function ($scope, $routeParams, resourceLearningObj, resourceActivity, $window, registerActivity) {
+angular.module('lects').controller('LessonController', function ($scope, $routeParams, resourceLearningObj, resourceLesson, $window, registerLesson) {
 
 	function init(){
-		$scope.activity = {};
+		$scope.lesson = {};
 		$scope.message = '';
-		$scope.activity.answers = [];
-		$scope.activity.owner = $window.sessionStorage.userLogin;
+		$scope.lesson.answers = [];
+		$scope.lesson.owner = $window.sessionStorage.userLogin;
 		$scope.learningObjs = [];
 		resourceLearningObj.query(function(learningObjs) {
 			$scope.learningObjs = learningObjs;
@@ -13,11 +13,11 @@ angular.module('lects').controller('ActivityController', function ($scope, $rout
 		});
 	}
 	
-	if ($routeParams.activityId) {
-		resourceActivity.get({
-			activityId: $routeParams.activityId
-		}, function (activity) {
-			$scope.activity = activity;
+	if ($routeParams.lessonId) {
+		resourceLesson.get({
+			lessonId: $routeParams.lessonId
+		}, function (lesson) {
+			$scope.lesson = lesson;
 		}, function (erro) {
 			console.log(erro);
 			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
@@ -30,11 +30,11 @@ angular.module('lects').controller('ActivityController', function ($scope, $rout
 		if ($scope.editCreateForm.$valid) {
 			$scope.learningObjs.forEach(function(item, index){
 				if (item.selected && item.selected=='true'){
-					$scope.activity.answers.push(item._id);
+					$scope.lesson.answers.push(item._id);
 				}
 			});
-			if ($scope.activity.answers && $scope.activity.answers.length > 0) {
-				registerActivity.save($scope.activity)
+			if ($scope.lesson.answers && $scope.lesson.answers.length > 0) {
+				registerLesson.save($scope.lesson)
 				.then(function(data) {
 					if (data.included) {
 						init();

@@ -1,17 +1,17 @@
-angular.module('ActivityServices', ['ngResource'])
-	.factory('resourceActivity', function($resource) {
-		return $resource('/v1/activitys/:activityId', null, {
+angular.module('LessonServices', ['ngResource'])
+	.factory('resourceLesson', function($resource) {
+		return $resource('/v1/lessons/:lessonId', null, {
 			'update' : { 
 				method: 'PUT'
 			}
 		});
 	})
-	.factory("registerActivity", function(resourceActivity, $q) {
+	.factory("registerLesson", function(resourceLesson, $q) {
 		var service = {};
-		service.save = function(activity) {
+		service.save = function(lesson) {
 			return $q(function(resolve, reject) {
-				if(activity._id) {
-					resourceActivity.update({activityId: activity._id}, activity, function() {
+				if(lesson._id) {
+					resourceLesson.update({lessonId: lesson._id}, lesson, function() {
 						resolve({
 							message: 'Atividade atualizada com sucesso',
 							included: false
@@ -24,7 +24,7 @@ angular.module('ActivityServices', ['ngResource'])
 					});
 
 				} else {
-					resourceActivity.save(activity, function() {
+					resourceLesson.save(lesson, function() {
 						resolve({
 							message: 'Atividade incluída com sucesso',
 							included: true

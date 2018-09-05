@@ -4,12 +4,12 @@ module.exports = function(app) {
 
 	var api = {};
 
-	var model = mongoose.model('Activity');
+	var model = mongoose.model('Lesson');
 
 	api.list = function(req, res) {
 		model.find()
-		.then(function(activitys) {
-			res.json(activitys);
+		.then(function(lessons) {
+			res.json(lessons);
 		}, function(error) {
 			console.log(error);
 			res.sendStatus(500);
@@ -18,9 +18,9 @@ module.exports = function(app) {
 
 	api.findById = function(req, res) {
 		model.findById(req.params.id)
-		.then(function(activity) {
-			if (!activity) throw new Error('Atividade não encontrada');
-			res.json(activity);
+		.then(function(lesson) {
+			if (!lesson) throw new Error('Atividade não encontrada');
+			res.json(lesson);
 		}, function(error) {
 			console.log(error);
 			res.sendStatus(500);
@@ -39,8 +39,8 @@ module.exports = function(app) {
 
 	api.add = function(req, res) {
 		model.create(req.body)
-		.then(function(activity) {
-			res.json(activity);
+		.then(function(lesson) {
+			res.json(lesson);
 		}, function(error) {
 			console.log('Erro ao inserir a atividade');
 			console.log(error);
@@ -50,8 +50,8 @@ module.exports = function(app) {
 
 	api.update = function(req, res) {
 		model.findByIdAndUpdate(req.params.id, req.body)
-		.then(function(activity) {
-			res.json(activity);
+		.then(function(lesson) {
+			res.json(lesson);
 		}, function(error) {
 			console.log(error);
 			res.sendStatus(500);

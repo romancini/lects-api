@@ -19,4 +19,4 @@ var schema = mongoose.Schema({
     }
 });
 
-mongoose.model('Activity', schema);
+mongoose.model('Lesson', schema);
