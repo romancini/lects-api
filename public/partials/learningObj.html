@@ -34,7 +34,7 @@
 				Tipo de resposta obrigatório
 			</span>
 		</div>
-		<div id="divMultEsc" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha'">
+		<div id="divMultEsc" class="form-group" ng-if="learningObj.answer_type == 'Mutuamente Exclusiva'">
 			<label>Selecione apenas a resposta correta</label>
 			<button type="button" class="btn btn-secondary mb-1" ng-click="addNewAnswer()">Adicionar campo</button>		
 			<fieldset  data-ng-repeat="answer in learningObj.answers">
@@ -56,7 +56,7 @@
 			<br>
 			<textarea name="answer" class="form-control" ng-model="learningObj.answers[0].text"></textarea>
 		</div>
-		<div id="divMulEscVF" class="form-group" ng-if="learningObj.answer_type == 'Múltipla escolha (Certo/Errado)'">
+		<div id="divMulEscVF" class="form-group" ng-if="learningObj.answer_type == 'Múltiplas Respostas'">
 			<label>Selecione todas as respostas corretas</label>
 			<br>
 			<button type="button" class="btn btn-secondary mb-1" ng-click="addNewAnswer()">Adicionar campo</button>		
@@ -75,11 +75,9 @@
 				</div>
 			</fieldset>
 		</div>
-
 		<button type="submit" class="btn btn-primary" ng-disabled="editCreateForm.$invalid">
 			Salvar
 		</button>
-		<a href="/home" class="btn btn-primary">Copiar</a>
 		<a href="/home" class="btn btn-primary">Voltar</a>
 		<hr>
 	</div>

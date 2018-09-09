@@ -2,8 +2,7 @@ angular.module('lects').controller('LessonController', function ($scope, $routeP
 
 	function init(){
 		$scope.lesson = {};
-		$scope.message = '';
-		$scope.lesson.answers = [];
+		$scope.message = '';		
 		$scope.lesson.owner = $window.sessionStorage.userLogin;
 		$scope.learningObjs = [];
 		resourceLearningObj.query(function(learningObjs) {
@@ -20,20 +19,21 @@ angular.module('lects').controller('LessonController', function ($scope, $routeP
 			$scope.lesson = lesson;
 		}, function (erro) {
 			console.log(erro);
-			$scope.message = 'Não foi possível obter o objeto de aprendizagem'
+			$scope.message = 'Não foi possível obter a lição'
 		});
 	} else {
 		init();
 	}
 
 	$scope.submit = function() {
+		$scope.lesson.learningObjs = [];
 		if ($scope.editCreateForm.$valid) {
 			$scope.learningObjs.forEach(function(item, index){
 				if (item.selected && item.selected=='true'){
-					$scope.lesson.answers.push(item._id);
+					$scope.lesson.learningObjs.push(item._id);
 				}
 			});
-			if ($scope.lesson.answers && $scope.lesson.answers.length > 0) {
+			if ($scope.lesson.learningObjs && $scope.lesson.learningObjs.length > 0) {
 				registerLesson.save($scope.lesson)
 				.then(function(data) {
 					if (data.included) {
