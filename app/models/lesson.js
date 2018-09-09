@@ -9,7 +9,7 @@ var schema = mongoose.Schema({
     description: {
         type: String
     },
-    answers: {
+    learningObjs: {
         type: Array,
         require: true
     },
