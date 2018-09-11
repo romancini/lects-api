@@ -24,7 +24,7 @@ angular.module('lects', ['LearningObjServices', 'LessonServices','ngAnimate', 'n
 			controller: 'LessonController'
 		});
 
-		$routeProvider.when('/lessons/edit/:learningObjId', {
+		$routeProvider.when('/lessons/edit/:lessonId', {
 			templateUrl: 'partials/lesson.html',
 			controller: 'LessonController'
 		});

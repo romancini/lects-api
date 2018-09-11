@@ -4,23 +4,43 @@ angular.module('lects').controller('LessonController', function ($scope, $routeP
 		$scope.lesson = {};
 		$scope.message = '';		
 		$scope.lesson.owner = $window.sessionStorage.userLogin;
-		$scope.learningObjs = [];
+		$scope.learningObjs = [];	
+		recoverLearningObjs();	
+	}
+
+	function setLearningObjsSelectedChecked(){
+		$scope.learningObjs.forEach(function(item, index){
+			if ($scope.lesson.learningObjs.indexOf(item._id) != -1){
+				item.selected='true'
+			}
+		});
+	}
+
+	function recoverLearningObjs(){
 		resourceLearningObj.query(function(learningObjs) {
 			$scope.learningObjs = learningObjs;
+			if ($routeParams.lessonId){
+				setLearningObjsSelectedChecked();
+			}
 		}, function(error) {
 			console.log(error);
 		});
 	}
-	
-	if ($routeParams.lessonId) {
+
+	function recoverLessonById(){
 		resourceLesson.get({
 			lessonId: $routeParams.lessonId
 		}, function (lesson) {
 			$scope.lesson = lesson;
+			recoverLearningObjs();
 		}, function (erro) {
 			console.log(erro);
 			$scope.message = 'Não foi possível obter a lição'
 		});
+	}	
+	
+	if ($routeParams.lessonId) {
+		recoverLessonById();		
 	} else {
 		init();
 	}
@@ -28,11 +48,7 @@ angular.module('lects').controller('LessonController', function ($scope, $routeP
 	$scope.submit = function() {
 		$scope.lesson.learningObjs = [];
 		if ($scope.editCreateForm.$valid) {
-			$scope.learningObjs.forEach(function(item, index){
-				if (item.selected && item.selected=='true'){
-					$scope.lesson.learningObjs.push(item._id);
-				}
-			});
+			
 			if ($scope.lesson.learningObjs && $scope.lesson.learningObjs.length > 0) {
 				registerLesson.save($scope.lesson)
 				.then(function(data) {

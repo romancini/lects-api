@@ -27,6 +27,19 @@
 				<input class="form-control" placeholder="filtrar pelo título do objeto" ng-model="filter">
 			</div>
 		</form>
+		<h2>Lições</h2>
+		<div class="row">
+			<div class="col-md-6 mb-1" ng-repeat="le in lessons | filter: filter">
+				<div class="input-group mb-2">
+					<p class="h5 form-control mb-1">{{le.title | limitTo: 100}}...</p>
+					<a class="btn btn-outline-primary btn-block" href="/lessons/edit/{{le._id}}">
+						Editar
+					</a>
+					<button class="btn btn btn-outline-danger btn-block" ng-click="">Apagar</button>
+				</div>
+			</div>
+		</div>
+		<h2>Objetos de aprendizagem</h2>
 		<div class="row">
 			<div class="col-md-6 mb-1" ng-repeat="lo in learningObjs | filter: filter">
 				<div class="input-group mb-2">
@@ -50,6 +63,6 @@
 					<button class="btn btn btn-outline-danger btn-block" ng-click="">Apagar</button>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 </div>
