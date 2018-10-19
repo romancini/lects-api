@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var jwt  = require('jsonwebtoken'); 
+var jwt  = require('jsonwebtoken');
 
 module.exports = function(app) {
 
@@ -21,8 +21,14 @@ module.exports = function(app) {
                      expiresIn: 84600 //24h
                  });
                  console.log(user.login + ' authenticated');
-                 res.set('x-access-token', token);
+                 res.set('x-access-token', token);                 
                  res.set('userLogin', user.login);
+                 res.json({ 
+                    _id: user._id,
+                    login: user.login,
+                    userType: 'ADMIN', // TODO configure usertype
+                    userClass: 'pos-graduacao' // TODO configure userclass
+                });
                  res.end(); 
              }
          });
